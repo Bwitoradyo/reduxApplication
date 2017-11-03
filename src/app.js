@@ -7,7 +7,7 @@ const reducer = (state = {books:[]} , action) => {
     case "POST_BOOK":
     //let books = state.books.concat(action.payload);
     //return {books};
-    return {books:[...state.books, ...action.payload]}//spread operator needs babel-preset-stage-1
+    return {books:[...state.books, ...action.payload]}
     break;
   }
   return state

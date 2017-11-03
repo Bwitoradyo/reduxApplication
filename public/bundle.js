@@ -712,8 +712,8 @@ var reducer = function reducer() {
     case "POST_BOOK":
       //let books = state.books.concat(action.payload);
       //return {books};
-      return { books: [].concat(_toConsumableArray(state.books), _toConsumableArray(action.payload)) //spread operator needs babel-preset-stage-1
-      };break;
+      return { books: [].concat(_toConsumableArray(state.books), _toConsumableArray(action.payload)) };
+      break;
   }
   return state;
 };
