@@ -45,3 +45,8 @@ store.dispatch({
   } 
 })
 
+// -->>CART ACTIONS <<--
+store.dispatch({
+  type: "ADD_TO_CART",
+  payload: [{id:1}]
+})
