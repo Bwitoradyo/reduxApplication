@@ -1,4 +1,5 @@
 "use strict";
+
 import React from "react";
 import {Row, Col, Well, Button} from "react-bootstrap";
 
@@ -11,7 +12,7 @@ class BookItem extends React.Component{
       	    <h5>{this.props.title}</h5>
       	    <p>{this.props.description}</p>
       	    <h6>{this.props.price}</h6>
-      	    <Button bsStyle="primary"></Button>
+      	    <Button bsStyle="primary">Buy now</Button>
       	  </Col>
       	</Row>
       </Well>		    
