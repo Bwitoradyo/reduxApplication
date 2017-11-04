@@ -5,7 +5,7 @@ class BooksList extends React.Component{
   render(){
     return(
       <div>
-        <h1>Yomama!!!</h1>
+        <h1>Yoyoma!!!</h1>
       </div>		    
     ) 
   }

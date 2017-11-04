@@ -19,10 +19,6 @@ import {postBooks, deleteBooks, updateBooks} from "./actions/booksActions";
 const middleware = applyMiddleware(logger)
 const store = createStore(reducers, middleware);
 
-//store.subscribe(() => {
-  //console.log("current state is: ", store.getState());
-  // console.log("current price is: ", store.getState()[1].price);
-  //})
 
 import BooksList from "./components/pages/booksList";
 

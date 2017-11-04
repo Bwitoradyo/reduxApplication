@@ -1472,11 +1472,6 @@ var middleware = (0, _redux.applyMiddleware)(_reduxLogger2.default);
 
 var store = (0, _redux.createStore)(_index2.default, middleware);
 
-//store.subscribe(() => {
-//console.log("current state is: ", store.getState());
-// console.log("current price is: ", store.getState()[1].price);
-//})
-
 (0, _reactDom.render)(_react2.default.createElement(_booksList2.default, null), document.getElementById("app"));
 //STEP 2 create and dispatch actions
 store.dispatch((0, _booksActions.postBooks)([{
@@ -22494,7 +22489,7 @@ var BooksList = function (_React$Component) {
         _react2.default.createElement(
           "h1",
           null,
-          "Yomama!!!"
+          "Yoyoma!!!"
         )
       );
     }
