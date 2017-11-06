@@ -7,3 +7,12 @@ export const addToCart = (book) => {
     payload: book
   }
 }
+
+//DELETE FROM CART
+export const deleteCartItem = (cart) => {
+  return {
+    type: "DELETE_CART_ITEM",
+    payload: cart
+  }
+}
+ 
