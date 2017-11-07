@@ -8,6 +8,17 @@ export const addToCart = (book) => {
   }
 }
 
+//UPDATE CART
+export const updateCart = (_id, unit) => {
+  return {
+    type: "UPDATE_CART",
+    _id: _id,
+    unit: unit
+  }
+}
+
+
+
 //DELETE FROM CART
 export const deleteCartItem = (cart) => {
   return {
