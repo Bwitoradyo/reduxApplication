@@ -14,18 +14,23 @@ import reducers from "./reducers/index";
 import {addToCart} from "./actions/cartActions";
 import {postBooks, deleteBooks, updateBooks} from "./actions/booksActions";
 
-
-
 //STEP 1 create the store
 const middleware = applyMiddleware(logger)
 const store = createStore(reducers, middleware);
 
 
 import BooksList from "./components/pages/booksList";
+import Menu from "./components/pages/menu";
+import Footer from "./components/pages/footer";
 
 render(
   <Provider store={store}>
-    <BooksList/>
+    <div>
+    <Menu/>
+    <BooksList/>	
+    <Footer/>
+    </div>
+
   </Provider>, document.getElementById("app")		
 )
 //STEP 2 create and dispatch actions
