@@ -5,7 +5,7 @@ import {render} from "react-dom";
 import {Provider} from "react-redux";
 
 // REACT ROUTER
-import {Router, Route, IndexRoute, browserHistory} from "react-router";
+//import {Router, Route, IndexRoute, browserHistory} from "react-router";
 
 import {applyMiddleware, createStore} from "redux";
 import logger from "redux-logger";
