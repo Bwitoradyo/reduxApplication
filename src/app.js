@@ -5,7 +5,7 @@ import {render} from "react-dom";
 import {Provider} from "react-redux";
 
 // REACT ROUTER
-//import {Router, Route, IndexRoute, browserHistory} from "react-router";
+import {Router, Route, IndexRoute, browserHistory} from "react-router";
 
 import {applyMiddleware, createStore} from "redux";
 import logger from "redux-logger";
@@ -37,7 +37,7 @@ const Routes = (
 	<Route path="/cart" component={Cart}/>
       </Route>
     </Router>
-  </Provider>, document.getElementById("app")		
+  </Provider>		
   
 )
 

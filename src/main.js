@@ -8,9 +8,9 @@ class Main extends React.Component{
   render(){
     return(
       <div>
-        <Menu>
+        <Menu />
 	  {this.props.children}
-	</Menu>
+	<Footer/>
       </div>   		    
     )
   }
