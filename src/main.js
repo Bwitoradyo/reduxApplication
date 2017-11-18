@@ -4,11 +4,14 @@ import React from "react";
 import Menu from "./components/pages/menu";
 import Footer from "./components/pages/footer";
 
+import {connect} from "react-redux";
+
+
 class Main extends React.Component{
   render(){
     return(
       <div>
-        <Menu />
+        <Menu cartItemsNumber={this.props.totalQty}/>
 	  {this.props.children}
 	<Footer/>
       </div>   		    
@@ -16,4 +19,10 @@ class Main extends React.Component{
   }
 }
 
-export default Main;
+const mapStateToProps = (state) => {
+  return{
+    totalQty: state.cart.totalQty
+  }
+}
+
+export default connect(mapStateToProps)(Main);
