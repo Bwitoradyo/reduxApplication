@@ -2,24 +2,13 @@
 
 //BOOKS REDUCERS
 
-export const booksReducers = (state = {books:[
-  {
-    _id: 1,
-    title: "this is the book title",
-    description: "this is the book description",
-    price: 33.33
-   },
-   {
-    _id: 2,
-    title: "this is the second book title",
-    description: "this is the second book description",
-    price: 50
-   }   
-]} , action) => {
+export const booksReducers = (state = {
+  books:[]
+} , action) => {
   switch(action.type){
     case "GET_BOOKS":
     //return copy of the state and a copy of the books array from the state
-    return {...state, books:[...state.books]}
+    return {...state, books:[...action.payload]}
     break;
 
     case "POST_BOOK":

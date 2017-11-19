@@ -3,8 +3,14 @@ import axios from "axios";
 
 // GET BOOKS
 export const getBooks = () => {
-  return {
-    type:"GET_BOOKS"
+  return (dispatch) => {
+    axios.get("./books")
+      .then((response) => {
+        dispatch({type:"GET_BOOKS", payload:response.data})
+          .catch((err) =>{
+          dispatch({type:"GET_BOOKS_REJECTED", payload:"There was an error while getting books data"}) 
+        })
+      })
   }
 }
 
@@ -23,10 +29,15 @@ export const postBooks = (book) => {
 
 // DELETE A BOOK
 export const deleteBooks = (id) => {
-   return {
-     type: "DELETE_BOOK",
-     payload: id
-   }
+  return (dispatch) => {
+    axios.delete("/books/" + id)
+      .then((response) => {
+        dispatch({type:"DELETE_BOOK", payload:id})
+      })
+        .catch((err) => {
+	  dispatach({type:"DELETE_BOOK_REJECTED", payload:"There was an error while deleting a book"})
+	})
+  }
 }
 
 // UPDATE A BOOK
