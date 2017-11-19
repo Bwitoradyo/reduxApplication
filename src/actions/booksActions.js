@@ -1,4 +1,6 @@
 "use strict";
+import axios from "axios";
+
 // GET BOOKS
 export const getBooks = () => {
   return {
@@ -8,10 +10,15 @@ export const getBooks = () => {
 
 // POST A BOOK
 export const postBooks = (book) => {
-  return {
-    type:"POST_BOOK",
-    payload: book
-  }   
+  return (dispatch) => {
+    axios.post("./books", book)
+      .then((response) => {
+        dispatch({type:"POST_BOOK", payload:response.data})
+      })
+      .catch((err) => {
+        dispatch({type:"POST_BOOK_REJECTED", payload:"There was an error while posting a new book"})
+      })
+  }
 }
 
 // DELETE A BOOK
