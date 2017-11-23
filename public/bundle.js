@@ -11192,6 +11192,11 @@ var go = exports.go = function go(n) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var addToCart = exports.addToCart = function addToCart(book) {
   return {
     type: "ADD_TO_CART",
@@ -11200,11 +11205,21 @@ var addToCart = exports.addToCart = function addToCart(book) {
 };
 
 //UPDATE CART
-var updateCart = exports.updateCart = function updateCart(_id, unit) {
+var updateCart = exports.updateCart = function updateCart(_id, unit, cart) {
+  //Create a copy of the current array of books
+  var currentBookToUpdate = cart;
+  //Determine at which index in books array is the book to be updated
+  var indexToUpdate = currentBookToUpdate.findIndex(function (book) {
+    return book._id === _id;
+  });
+  var newBookToUpdate = _extends({}, currentBookToUpdate[indexToUpdate], {
+    quantity: currentBookToUpdate[indexToUpdate].quantity + unit
+  });
+  var cartUpdate = [].concat(_toConsumableArray(currentBookToUpdate.slice(0, indexToUpdate)), [newBookToUpdate], _toConsumableArray(currentBookToUpdate.slice(indexToUpdate + 1)));
+
   return {
     type: "UPDATE_CART",
-    _id: _id,
-    unit: unit
+    payload: cartUpdate
   };
 };
 
@@ -22241,13 +22256,13 @@ var Cart = function (_React$Component) {
   }, {
     key: "onIncrement",
     value: function onIncrement(_id) {
-      this.props.updateCart(_id, 1);
+      this.props.updateCart(_id, 1, this.props.cart);
     }
   }, {
     key: "onDecrement",
     value: function onDecrement(_id, quantity) {
       if (quantity > 1) {
-        this.props.updateCart(_id, -1);
+        this.props.updateCart(_id, -1, this.props.cart);
       }
     }
   }]);
@@ -38233,8 +38248,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 var cartReducers = exports.cartReducers = function cartReducers() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { cart: [] };
   var action = arguments[1];
@@ -38248,21 +38261,10 @@ var cartReducers = exports.cartReducers = function cartReducers() {
       });
       break;
     case "UPDATE_CART":
-      //Create a copy of the current array of books
-      var currentBookToUpdate = [].concat(_toConsumableArray(state.cart));
-      //Determine at which index in books array is the book to be updated
-      var indexToUpdate = currentBookToUpdate.findIndex(function (book) {
-        return book._id === action._id;
-      });
-      var newBookToUpdate = _extends({}, currentBookToUpdate[indexToUpdate], {
-        quantity: currentBookToUpdate[indexToUpdate].quantity + action.unit
-      });
-      var cartUpdate = [].concat(_toConsumableArray(currentBookToUpdate.slice(0, indexToUpdate)), [newBookToUpdate], _toConsumableArray(currentBookToUpdate.slice(indexToUpdate + 1)));
-
       return _extends({}, state, {
-        cart: cartUpdate,
-        totalAmount: totals(cartUpdate).amount,
-        totalQty: totals(cartUpdate).qty
+        cart: action.payload,
+        totalAmount: totals(action.payload).amount,
+        totalQty: totals(action.payload).qty
       });
 
       break;
@@ -50625,7 +50627,7 @@ var BookItem = function (_React$Component) {
           this.props.addToCart(book);
         } else {
           //WE NEED TO UPDATE QUANTITY
-          this.props.updateCart(_id, 1);
+          this.props.updateCart(_id, 1, this.props.cart);
         }
       } else {
         //CART IS EMPTY
