@@ -44,7 +44,7 @@ class BooksForm extends React.Component{
 	    />
       	  </FormGroup>
       	  <FormGroup controlId="description">
-      	    <ControlLabel>Title</ControlLabel>
+      	    <ControlLabel>Description</ControlLabel>
       	    <FormControl
 	      type="text"
 	      placeholder="Enter description"
@@ -52,7 +52,7 @@ class BooksForm extends React.Component{
 	    />
       	  </FormGroup>
       	  <FormGroup controlId="price">
-      	    <ControlLabel>Title</ControlLabel>
+      	    <ControlLabel>Price</ControlLabel>
       	    <FormControl
 	      type="text"
 	      placeholder="Enter price"

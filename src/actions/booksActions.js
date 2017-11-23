@@ -4,7 +4,7 @@ import axios from "axios";
 // GET BOOKS
 export const getBooks = () => {
   return (dispatch) => {
-    axios.get("./books")
+    axios.get("/api/books")
       .then((response) => {
         dispatch({type:"GET_BOOKS", payload:response.data})
           .catch((err) =>{
@@ -17,7 +17,7 @@ export const getBooks = () => {
 // POST A BOOK
 export const postBooks = (book) => {
   return (dispatch) => {
-    axios.post("./books", book)
+    axios.post("/api/books", book)
       .then((response) => {
         dispatch({type:"POST_BOOK", payload:response.data})
       })
@@ -30,7 +30,7 @@ export const postBooks = (book) => {
 // DELETE A BOOK
 export const deleteBooks = (id) => {
   return (dispatch) => {
-    axios.delete("/books/" + id)
+    axios.delete("/api/books/" + id)
       .then((response) => {
         dispatch({type:"DELETE_BOOK", payload:id})
       })
