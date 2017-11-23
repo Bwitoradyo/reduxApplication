@@ -7,10 +7,10 @@ export const getBooks = () => {
     axios.get("/api/books")
       .then((response) => {
         dispatch({type:"GET_BOOKS", payload:response.data})
+      })
           .catch((err) =>{
           dispatch({type:"GET_BOOKS_REJECTED", payload:"There was an error while getting books data"}) 
         })
-      })
   }
 }
 

@@ -5,9 +5,12 @@ import {connect} from "react-redux";
 import {Panel, Col, Row, Well, Button, ButtonGroup, Label, Modal} from "react-bootstrap";
 import {bindActionCreators} from "redux";
 
-import {deleteCartItem, updateCart} from "../../actions/cartActions";
+import {deleteCartItem, updateCart, getCart} from "../../actions/cartActions";
 
 class Cart extends React.Component{
+  componentDidMount(){
+    this.props.getCart();
+  }
 
   onDelete(_id){
     //Create a copy of the current array in cart
@@ -133,7 +136,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     deleteCartItem: deleteCartItem,
-    updateCart: updateCart
+    updateCart: updateCart,
+    getCart: getCart
   }, dispatch)
 }
 
