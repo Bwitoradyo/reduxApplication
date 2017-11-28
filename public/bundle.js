@@ -11369,7 +11369,7 @@ module.exports = defaults;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateBooks = exports.deleteBooks = exports.postBooks = exports.getBooks = undefined;
+exports.resetButton = exports.updateBooks = exports.deleteBooks = exports.postBooks = exports.getBooks = undefined;
 
 var _axios = __webpack_require__(127);
 
@@ -11415,6 +11415,12 @@ var updateBooks = exports.updateBooks = function updateBooks(book) {
   return {
     type: "UPDATE_BOOK",
     payload: book
+  };
+};
+// RESET FORM BUTTON
+var resetButton = exports.resetButton = function resetButton() {
+  return {
+    type: "RESET_BUTTON"
   };
 };
 
@@ -22145,6 +22151,14 @@ var BooksForm = function (_React$Component) {
       });
     }
   }, {
+    key: "resetForm",
+    value: function resetForm() {
+      //RESET THE Button
+      this.props.resetButton();
+      (0, _reactDom.findDOMNode)(this.refs.title).value = "", (0, _reactDom.findDOMNode)(this.refs.description).value = "", (0, _reactDom.findDOMNode)(this.refs.price).value = "";
+      this.setState({ img: "" });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this3 = this;
@@ -22247,8 +22261,10 @@ var BooksForm = function (_React$Component) {
               ),
               _react2.default.createElement(
                 _reactBootstrap.Button,
-                { onClick: this.handleSubmit.bind(this), bsStyle: "primary" },
-                "Save book"
+                {
+                  onClick: !this.props.msg ? this.handleSubmit.bind(this) : this.resetForm.bind(this),
+                  bsStyle: !this.props.style ? "primary" : this.props.style },
+                !this.props.msg ? "Save book" : this.props.msg
               )
             ),
             _react2.default.createElement(
@@ -22290,7 +22306,9 @@ var BooksForm = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    books: state.books.books
+    books: state.books.books,
+    msg: state.books.msg,
+    style: state.books.style
   };
 };
 
@@ -22298,7 +22316,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return (0, _redux.bindActionCreators)({
     postBooks: _booksActions.postBooks,
     deleteBooks: _booksActions.deleteBooks,
-    getBooks: _booksActions.getBooks
+    getBooks: _booksActions.getBooks,
+    resetButton: _booksActions.resetButton
   }, dispatch);
 };
 
@@ -38303,9 +38322,15 @@ var booksReducers = exports.booksReducers = function booksReducers() {
       break;
 
     case "POST_BOOK":
-      //let books = state.books.concat(action.payload);
-      //return {books};
-      return { books: [].concat(_toConsumableArray(state.books), _toConsumableArray(action.payload)) };
+      return _extends({}, state, { books: [].concat(_toConsumableArray(state.books), _toConsumableArray(action.payload)), msg: "Saved! Click to continue", style: "success" });
+      break;
+
+    case "POST_BOOK_REJECTED":
+      return _extends({}, state, { msg: "Please try again!", style: "danger" });
+      break;
+
+    case "RESET_BUTTON":
+      return _extends({}, state, { msg: null, style: "primary" });
       break;
 
     case "DELETE_BOOK":
